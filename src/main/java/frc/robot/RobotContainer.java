@@ -19,6 +19,8 @@ import org.usfirst.frc3620.misc.CANDeviceType;
 import org.usfirst.frc3620.misc.RobotParameters;
 import org.usfirst.frc3620.misc.RobotParametersContainer;
 
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
@@ -33,6 +35,8 @@ public class RobotContainer {
   static RobotParameters robotParameters;
 
   // hardware here...
+  //public static CANSparkMaxSendable Motor;
+  public static WPI_TalonFX thisMotor;
   private static DigitalInput practiceBotJumper;
 
   // subsystems here
@@ -76,6 +80,9 @@ public class RobotContainer {
   }
 
   private void setupMotors() {
+    if (canDeviceFinder.isDevicePresent(CANDeviceType.TALON, 1, "the motor")) {
+      thisMotor = new WPI_TalonFX(1);
+    }
 
   }
 
