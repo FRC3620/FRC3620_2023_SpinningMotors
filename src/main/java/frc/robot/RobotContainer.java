@@ -20,6 +20,8 @@ import org.usfirst.frc3620.misc.RobotParameters;
 import org.usfirst.frc3620.misc.RobotParametersContainer;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -36,6 +38,7 @@ public class RobotContainer {
 
   // hardware here...
   //public static CANSparkMaxSendable Motor;
+  public static CANSparkMaxSendable theothermotor;
   public static WPI_TalonFX thisMotor;
   private static DigitalInput practiceBotJumper;
 
@@ -75,7 +78,7 @@ public class RobotContainer {
     if (canDeviceFinder.isDevicePresent(CANDeviceType.REV_PH, 1, "REV PH") || iAmACompetitionRobot) {
       pneumaticModuleType = PneumaticsModuleType.REVPH;
     } else if (canDeviceFinder.isDevicePresent(CANDeviceType.CTRE_PCM, 0, "CTRE PCM")) {
-      pneumaticModuleType = PneumaticsModuleType.CTREPCM;
+      pneumaticModuleType = PneumaticsModuleType.CTREPCM; 
     }
   }
 
@@ -83,9 +86,12 @@ public class RobotContainer {
     if (canDeviceFinder.isDevicePresent(CANDeviceType.TALON, 1, "the motor")) {
       thisMotor = new WPI_TalonFX(1);
     }
+    if (canDeviceFinder.isDevicePresent(CANDeviceType.SPARK_MAX, 1, "the otheer motor")) {
+      theothermotor = new CANSparkMaxSendable(1, MotorType.kBrushless);
+    }
 
   }
-
+  
   private void makeSubsystems() {
     exampleSubsystem = new ExampleSubsystem();
   }
